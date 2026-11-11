@@ -377,7 +377,8 @@
   }, { threshold: 0.15 });
 
   const YT_VIDEO_ID = "7-XxnRmqWSM";
-  const YT_START_SECONDS = 0;
+  const CLIP_START = 72;
+  const CLIP_END = 102;
   const musicBtn = document.getElementById("musicBtn");
   let player = null;
   let playerReady = false;
@@ -392,17 +393,24 @@
   window.onYouTubeIframeAPIReady = () => {
     player = new YT.Player("yt-player", {
       width: 1, height: 1, videoId: YT_VIDEO_ID,
-      playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: YT_VIDEO_ID, start: YT_START_SECONDS, playsinline: 1, rel: 0 },
+      playerVars: { autoplay: 0, controls: 0, start: CLIP_START, playsinline: 1, rel: 0 },
       events: {
         onReady: () => { playerReady = true; player.setVolume(70); if (wantPlay) player.playVideo(); },
         onStateChange: e => {
           if (e.data === YT.PlayerState.PLAYING) setMusicUi(true);
           if (e.data === YT.PlayerState.PAUSED) setMusicUi(false);
-          if (e.data === YT.PlayerState.ENDED) { player.seekTo(YT_START_SECONDS); player.playVideo(); }
+          if (e.data === YT.PlayerState.ENDED) { player.seekTo(CLIP_START, true); player.playVideo(); }
         }
       }
     });
   };
+
+  setInterval(() => {
+    if (playerReady && player.getPlayerState() === YT.PlayerState.PLAYING) {
+      const t = player.getCurrentTime();
+      if (t >= CLIP_END || t < CLIP_START - 1) player.seekTo(CLIP_START, true);
+    }
+  }, 250);
 
   if (YT_VIDEO_ID) {
     const s = document.createElement("script");
