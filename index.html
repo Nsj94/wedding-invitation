@@ -20,14 +20,21 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
+  html, body { overflow-x: hidden; }
   body {
     font-family: "Cormorant Garamond", Georgia, serif;
     color: var(--ink);
-    background: radial-gradient(ellipse at top, #8a1424 0%, var(--maroon) 40%, var(--maroon-deep) 100%);
-    background-attachment: fixed;
+    background: var(--maroon-deep);
     min-height: 100vh;
-    overflow-x: hidden;
+    min-height: 100dvh;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
   }
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1;
+    background: radial-gradient(ellipse at top, #8a1424 0%, var(--maroon) 40%, var(--maroon-deep) 100%);
+  }
+  img, iframe, svg { max-width: 100%; }
 
   .petals { position: fixed; inset: 0; pointer-events: none; z-index: 50; overflow: hidden; }
   .petal {
@@ -48,21 +55,23 @@
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     background: radial-gradient(ellipse at center, #8a1424 0%, var(--maroon-deep) 100%);
     transition: opacity 1s ease, visibility 1s ease;
-    text-align: center; padding: 24px;
+    text-align: center;
+    padding: max(24px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
   }
   .cover.hidden { opacity: 0; visibility: hidden; }
   .cover .seal {
-    width: 150px; height: 150px; border-radius: 50%;
+    width: clamp(110px, 34vw, 150px); height: clamp(110px, 34vw, 150px); border-radius: 50%;
     background: radial-gradient(circle at 35% 35%, var(--gold-light), var(--gold) 55%, #9c7425);
     box-shadow: 0 0 0 6px rgba(212,166,74,.25), 0 0 60px rgba(243,217,139,.45);
     display: flex; align-items: center; justify-content: center;
-    font-family: "Great Vibes", cursive; font-size: 3.4rem; color: var(--maroon);
+    font-family: "Great Vibes", cursive; font-size: clamp(2.6rem, 10vw, 3.4rem); color: var(--maroon);
     animation: pulse 2.4s ease-in-out infinite;
   }
   @keyframes pulse { 50% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(212,166,74,.15), 0 0 80px rgba(243,217,139,.6); } }
-  .cover p { color: var(--gold-light); font-family: "Cinzel", serif; letter-spacing: .3em; margin-top: 32px; font-size: .9rem; }
+  .cover p { color: var(--gold-light); font-family: "Cinzel", serif; letter-spacing: .3em; margin-top: 32px; font-size: .9rem; line-height: 1.8; }
+  .cover p .pa { display: block; font-family: "Noto Sans Gurmukhi", sans-serif; letter-spacing: .05em; font-size: 1.1rem; }
   .cover button {
-    margin-top: 24px; padding: 14px 36px;
+    margin-top: 24px; padding: 14px 36px; min-height: 48px;
     background: transparent; color: var(--gold-light);
     border: 1px solid var(--gold); border-radius: 40px;
     font-family: "Cinzel", serif; letter-spacing: .2em; font-size: .85rem; cursor: pointer;
@@ -132,10 +141,24 @@
   .date-block .day { font-size: 3.6rem; font-weight: 600; line-height: 1; }
   .year { font-family: "Cinzel", serif; letter-spacing: .5em; color: #8a5a2b; }
 
-  .countdown { display: flex; justify-content: center; gap: 14px; margin: 40px 0 10px; flex-wrap: wrap; }
-  .countdown div { width: 84px; padding: 14px 0; background: var(--maroon); color: var(--gold-light); border: 1px solid var(--gold); border-radius: 6px; }
-  .countdown span { display: block; font-family: "Cinzel", serif; font-size: 1.8rem; }
-  .countdown small { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; }
+  .countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(6px, 2.5vw, 14px); max-width: 390px; margin: 40px auto 10px; }
+  .countdown div { min-width: 0; padding: 14px 0; background: var(--maroon); color: var(--gold-light); border: 1px solid var(--gold); border-radius: 6px; }
+  .countdown span { display: block; font-family: "Cinzel", serif; font-size: clamp(1.25rem, 6vw, 1.8rem); }
+  .countdown small { font-size: clamp(.58rem, 2.4vw, .75rem); letter-spacing: .12em; text-transform: uppercase; }
+  .countdown > p { grid-column: 1 / -1; }
+
+  .music-btn {
+    position: fixed; z-index: 70;
+    right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom));
+    width: 52px; height: 52px; border-radius: 50%;
+    border: 2px solid var(--gold-light); background: var(--maroon); color: var(--gold-light);
+    font-size: 1.4rem; cursor: pointer; box-shadow: 0 6px 20px rgba(0,0,0,.4);
+    display: none; align-items: center; justify-content: center;
+  }
+  .music-btn.ready { display: flex; }
+  .music-btn.playing { animation: pulse 2.4s ease-in-out infinite; }
+  .music-btn.muted::after { content: ""; position: absolute; width: 60%; height: 2px; background: var(--gold-light); transform: rotate(-45deg); }
+  .yt-audio { position: fixed; left: -9999px; top: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
   .venue { margin: 40px auto 0; padding: 26px 20px; max-width: 460px; border: 1px dashed var(--gold); border-radius: 6px; background: rgba(212,166,74,.07); }
   .venue p { font-size: 1.15rem; font-style: italic; }
@@ -151,14 +174,38 @@
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity 1s ease, transform 1s ease; }
   .reveal.show { opacity: 1; transform: none; }
 
-  @media (max-width: 520px) {
-    .card { padding: 60px 22px 50px; }
+  @media (max-width: 600px) {
+    main { padding: 20px 10px 96px; }
+    .card { padding: 54px 22px 48px; outline-offset: -10px; }
+    .card::before { inset: 16px; }
+    .corner { width: 46px; height: 46px; top: 4px; }
+    .corner.tl, .corner.tr { top: 4px; }
+    .corner.bl, .corner.br { top: auto; bottom: 4px; }
+    .corner.tl, .corner.bl { left: 4px; }
+    .corner.tr, .corner.br { right: 4px; }
+    .khanda { font-size: 2.8rem; }
+    .ik-onkar { font-size: 1.35rem; }
+    .fateh, .intro, .closing, .venue p, .gurbani .translation { font-size: 1.05rem; }
+    .gurbani { padding: 14px 12px; }
+    .gurbani .gurmukhi { font-size: 1.1rem; }
+    .divider::before, .divider::after { width: 60px; }
+    .weds { letter-spacing: .3em; }
+    .ceremony { letter-spacing: .15em; line-height: 1.8; }
     .date-block { gap: 10px; }
-    .date-block .side { min-width: 80px; font-size: .75rem; padding: 6px; }
+    .date-block .side { min-width: 0; flex: 1; max-width: 120px; font-size: .72rem; letter-spacing: .12em; padding: 6px 4px; }
     .date-block .day { font-size: 2.8rem; }
-    .countdown div { width: 68px; }
-    .countdown span { font-size: 1.4rem; }
-    .corner { width: 50px; height: 50px; }
+    .year { letter-spacing: .4em; }
+    .programme h3, .venue h3 { letter-spacing: .2em; }
+    .venue { padding: 20px 14px; }
+    .families { letter-spacing: .08em; line-height: 1.7; }
+    .mandala { width: 320px; height: 320px; }
+    .mandala.one { top: -120px; left: -120px; }
+    .mandala.two { bottom: -120px; right: -120px; }
+  }
+  @media (max-width: 420px) {
+    .card { padding: 50px 24px 44px; }
+    .name { font-size: clamp(2.3rem, 12vw, 2.8rem); }
+    .cover p { letter-spacing: .18em; font-size: .8rem; }
   }
   @media (prefers-reduced-motion: reduce) {
     .mandala, .cover .seal { animation: none; }
@@ -170,11 +217,14 @@
 
 <div class="cover" id="cover">
   <div class="seal">J&amp;S</div>
-  <p>ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ · YOU ARE CORDIALLY INVITED</p>
+  <p><span class="pa">ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ</span>YOU ARE CORDIALLY INVITED</p>
   <button id="openBtn">Open Invitation</button>
 </div>
 
 <div class="petals" id="petals"></div>
+
+<div class="yt-audio" aria-hidden="true"><div id="yt-player"></div></div>
+<button class="music-btn" id="musicBtn" aria-label="Pause music">♪</button>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -316,10 +366,58 @@
     });
   }, { threshold: 0.15 });
 
+  const YT_VIDEO_ID = "";
+  const YT_START_SECONDS = 0;
+  const musicBtn = document.getElementById("musicBtn");
+  let player = null;
+  let playerReady = false;
+  let wantPlay = false;
+
+  function setMusicUi(playing) {
+    musicBtn.classList.toggle("playing", playing);
+    musicBtn.classList.toggle("muted", !playing);
+    musicBtn.setAttribute("aria-label", playing ? "Pause music" : "Play music");
+  }
+
+  window.onYouTubeIframeAPIReady = () => {
+    player = new YT.Player("yt-player", {
+      width: 1, height: 1, videoId: YT_VIDEO_ID,
+      playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: YT_VIDEO_ID, start: YT_START_SECONDS, playsinline: 1, rel: 0 },
+      events: {
+        onReady: () => { playerReady = true; player.setVolume(70); if (wantPlay) player.playVideo(); },
+        onStateChange: e => {
+          if (e.data === YT.PlayerState.PLAYING) setMusicUi(true);
+          if (e.data === YT.PlayerState.PAUSED) setMusicUi(false);
+          if (e.data === YT.PlayerState.ENDED) { player.seekTo(YT_START_SECONDS); player.playVideo(); }
+        }
+      }
+    });
+  };
+
+  if (YT_VIDEO_ID) {
+    const s = document.createElement("script");
+    s.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(s);
+    musicBtn.classList.add("ready");
+    setMusicUi(false);
+  }
+
+  function playMusic() {
+    wantPlay = true;
+    if (playerReady) player.playVideo();
+  }
+
+  musicBtn.addEventListener("click", () => {
+    if (!playerReady) { playMusic(); return; }
+    if (player.getPlayerState() === YT.PlayerState.PLAYING) { wantPlay = false; player.pauseVideo(); }
+    else playMusic();
+  });
+
   document.getElementById("openBtn").addEventListener("click", () => {
     cover.classList.add("hidden");
     document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
     startPetals();
+    if (YT_VIDEO_ID) playMusic();
   });
 
   const weddingDate = new Date("2026-12-06T00:00:00+05:30");
