@@ -118,6 +118,7 @@
   .programme .pa { display: block; font-family: "Noto Sans Gurmukhi", sans-serif; color: var(--kesari); font-size: 1.05rem; }
   .programme strong { display: block; font-family: "Cinzel", serif; color: var(--maroon); letter-spacing: .1em; margin-top: 2px; }
   .programme em { display: block; font-size: .95rem; margin-top: 4px; }
+  .programme .time { display: inline-block; margin-top: 6px; padding: 2px 12px; border-radius: 20px; background: var(--maroon); color: var(--gold-light); font-family: "Cinzel", serif; font-size: .8rem; letter-spacing: .1em; }
   .programme .note { margin-top: 12px; font-style: italic; color: #8a5a2b; }
   @media (max-width: 420px) { .programme ul { grid-template-columns: 1fr; } }
 
@@ -319,12 +320,11 @@
     <section class="programme reveal">
       <h3>PROGRAMME</h3>
       <ul>
-        <li><span class="pa">ਮਿਲਣੀ</span><strong>Milni</strong><em>Meeting of the families</em></li>
-        <li><span class="pa">ਅਨੰਦ ਕਾਰਜ</span><strong>Anand Karaj</strong><em>The four Laavan before Sri Guru Granth Sahib Ji</em></li>
-        <li><span class="pa">ਲੰਗਰ</span><strong>Langar</strong><em>Guru Ka Langar</em></li>
+        <li><span class="pa">ਮਿਲਣੀ</span><strong>Milni</strong><span class="time">9:00 AM</span><em>Meeting of the families</em></li>
+        <li><span class="pa">ਅਨੰਦ ਕਾਰਜ</span><strong>Anand Karaj</strong><span class="time">11:00 AM</span><em>The four Laavan before Sri Guru Granth Sahib Ji</em></li>
+        <li><span class="pa">ਦੁਪਹਿਰ ਦਾ ਖਾਣਾ</span><strong>Lunch</strong><span class="time">1:00 PM</span><em>Celebrating together</em></li>
         <li><span class="pa">ਡੋਲੀ</span><strong>Doli</strong><em>Farewell of the bride</em></li>
       </ul>
-      <p class="note">Timings will be shared soon</p>
     </section>
 
     <div class="venue reveal">
@@ -430,7 +430,7 @@
     if (YT_VIDEO_ID) playMusic();
   });
 
-  const weddingDate = new Date("2026-12-06T00:00:00+05:30");
+  const weddingDate = new Date("2026-12-06T09:00:00+05:30");
   const pad = n => String(n).padStart(2, "0");
   function tick() {
     const diff = weddingDate - new Date();
