@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jaskrit & Sukhmeet — Wedding Invitation</title>
+<meta name="description" content="Jaskrit Kaur weds Sukhmeet Singh — Sunday, 6 December 2026">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Noto+Sans+Gurmukhi:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --maroon: #6b0f1a;
+    --maroon-deep: #3d0710;
+    --gold: #d4a64a;
+    --gold-light: #f3d98b;
+    --cream: #fff8ec;
+    --ink: #4a2a1a;
+    --kesari: #e8830a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    color: var(--ink);
+    background: radial-gradient(ellipse at top, #8a1424 0%, var(--maroon) 40%, var(--maroon-deep) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .petals { position: fixed; inset: 0; pointer-events: none; z-index: 50; overflow: hidden; }
+  .petal {
+    position: absolute; top: -40px;
+    width: 14px; height: 18px;
+    background: radial-gradient(circle at 30% 30%, #ffb38a, #e8572a 70%);
+    border-radius: 80% 0 80% 0;
+    opacity: .85;
+    animation: fall linear forwards;
+  }
+  .petal.marigold { background: radial-gradient(circle at 30% 30%, #ffe27a, #f2a900 70%); border-radius: 50%; width: 10px; height: 10px; }
+  @keyframes fall {
+    to { transform: translateY(110vh) translateX(var(--drift)) rotate(var(--spin)); opacity: .2; }
+  }
+
+  .cover {
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: radial-gradient(ellipse at center, #8a1424 0%, var(--maroon-deep) 100%);
+    transition: opacity 1s ease, visibility 1s ease;
+    text-align: center; padding: 24px;
+  }
+  .cover.hidden { opacity: 0; visibility: hidden; }
+  .cover .seal {
+    width: 150px; height: 150px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, var(--gold-light), var(--gold) 55%, #9c7425);
+    box-shadow: 0 0 0 6px rgba(212,166,74,.25), 0 0 60px rgba(243,217,139,.45);
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Great Vibes", cursive; font-size: 3.4rem; color: var(--maroon);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(212,166,74,.15), 0 0 80px rgba(243,217,139,.6); } }
+  .cover p { color: var(--gold-light); font-family: "Cinzel", serif; letter-spacing: .3em; margin-top: 32px; font-size: .9rem; }
+  .cover button {
+    margin-top: 24px; padding: 14px 36px;
+    background: transparent; color: var(--gold-light);
+    border: 1px solid var(--gold); border-radius: 40px;
+    font-family: "Cinzel", serif; letter-spacing: .2em; font-size: .85rem; cursor: pointer;
+    transition: background .3s, color .3s;
+  }
+  .cover button:hover { background: var(--gold); color: var(--maroon-deep); }
+
+  main { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 48px 16px 80px; }
+
+  .card {
+    position: relative;
+    background: radial-gradient(circle at 50% 0%, rgba(212,166,74,.12), transparent 60%), var(--cream);
+    border-radius: 6px;
+    padding: 72px 40px 64px;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(0,0,0,.45);
+    outline: 2px solid var(--gold);
+    outline-offset: -14px;
+  }
+  .card::before {
+    content: ""; position: absolute; inset: 22px;
+    border: 1px solid rgba(212,166,74,.6); pointer-events: none;
+  }
+  .corner { position: absolute; width: 70px; height: 70px; color: var(--gold); }
+  .corner.tl { top: 8px; left: 8px; }
+  .corner.tr { top: 8px; right: 8px; transform: scaleX(-1); }
+  .corner.bl { bottom: 8px; left: 8px; transform: scaleY(-1); }
+  .corner.br { bottom: 8px; right: 8px; transform: scale(-1,-1); }
+
+  .khanda { font-size: 3.4rem; color: var(--kesari); line-height: 1; margin-bottom: 8px; }
+  .ik-onkar { font-family: "Noto Sans Gurmukhi", sans-serif; font-size: 1.6rem; color: var(--maroon); line-height: 1.3; }
+  .fateh { font-style: italic; color: #8a5a2b; margin-top: 8px; font-size: 1.1rem; }
+  .closing-fateh { font-family: "Noto Sans Gurmukhi", sans-serif; font-style: normal; color: var(--maroon); margin-top: 26px; }
+
+  .gurbani { margin: 30px auto 0; max-width: 520px; padding: 18px 20px; border-left: 3px solid var(--kesari); border-right: 3px solid var(--kesari); background: rgba(232,131,10,.06); }
+  .gurbani .gurmukhi { font-family: "Noto Sans Gurmukhi", sans-serif; font-size: 1.25rem; color: var(--maroon); }
+  .gurbani .translation { font-style: italic; margin-top: 8px; font-size: 1.1rem; }
+  .gurbani cite { display: block; margin-top: 6px; font-family: "Cinzel", serif; font-style: normal; font-size: .72rem; letter-spacing: .15em; color: #8a5a2b; }
+
+  .programme { margin: 44px auto 0; max-width: 520px; }
+  .programme h3, .venue h3 { font-family: "Cinzel", serif; letter-spacing: .3em; color: var(--maroon); font-size: 1rem; margin-bottom: 14px; }
+  .programme ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .programme li { padding: 14px 10px; border: 1px solid rgba(212,166,74,.6); border-radius: 6px; background: #fff; }
+  .programme .pa { display: block; font-family: "Noto Sans Gurmukhi", sans-serif; color: var(--kesari); font-size: 1.05rem; }
+  .programme strong { display: block; font-family: "Cinzel", serif; color: var(--maroon); letter-spacing: .1em; margin-top: 2px; }
+  .programme em { display: block; font-size: .95rem; margin-top: 4px; }
+  .programme .note { margin-top: 12px; font-style: italic; color: #8a5a2b; }
+  @media (max-width: 420px) { .programme ul { grid-template-columns: 1fr; } }
+
+  .divider { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 28px auto; color: var(--gold); }
+  .divider::before, .divider::after { content: ""; height: 1px; width: 90px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+
+  .intro { font-size: 1.15rem; line-height: 1.7; max-width: 520px; margin: 0 auto; }
+
+  .names { margin: 34px 0 10px; }
+  .name {
+    font-family: "Great Vibes", cursive; font-weight: 400;
+    font-size: clamp(2.8rem, 9vw, 4.6rem);
+    color: var(--maroon); line-height: 1.1;
+    text-shadow: 0 2px 0 rgba(212,166,74,.25);
+  }
+  .weds { font-family: "Cinzel", serif; letter-spacing: .4em; color: var(--gold); font-size: 1rem; margin: 12px 0; }
+  .ceremony { font-family: "Cinzel", serif; letter-spacing: .25em; color: #8a5a2b; font-size: .85rem; margin-top: 18px; }
+
+  .date-block { display: flex; justify-content: center; align-items: center; gap: 22px; margin: 36px auto 10px; font-family: "Cinzel", serif; color: var(--maroon); }
+  .date-block .side { border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); padding: 8px 14px; letter-spacing: .2em; font-size: .9rem; min-width: 110px; }
+  .date-block .day { font-size: 3.6rem; font-weight: 600; line-height: 1; }
+  .year { font-family: "Cinzel", serif; letter-spacing: .5em; color: #8a5a2b; }
+
+  .countdown { display: flex; justify-content: center; gap: 14px; margin: 40px 0 10px; flex-wrap: wrap; }
+  .countdown div { width: 84px; padding: 14px 0; background: var(--maroon); color: var(--gold-light); border: 1px solid var(--gold); border-radius: 6px; }
+  .countdown span { display: block; font-family: "Cinzel", serif; font-size: 1.8rem; }
+  .countdown small { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; }
+
+  .venue { margin: 40px auto 0; padding: 26px 20px; max-width: 460px; border: 1px dashed var(--gold); border-radius: 6px; background: rgba(212,166,74,.07); }
+  .venue p { font-size: 1.15rem; font-style: italic; }
+
+  .closing { margin-top: 44px; font-size: 1.15rem; line-height: 1.7; }
+  .families { margin-top: 18px; font-family: "Cinzel", serif; letter-spacing: .15em; font-size: .9rem; color: var(--maroon); }
+
+  .mandala { position: fixed; width: 520px; height: 520px; opacity: .08; color: var(--gold); pointer-events: none; animation: spin 120s linear infinite; z-index: 0; }
+  .mandala.one { top: -180px; left: -180px; }
+  .mandala.two { bottom: -180px; right: -180px; animation-direction: reverse; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 1s ease, transform 1s ease; }
+  .reveal.show { opacity: 1; transform: none; }
+
+  @media (max-width: 520px) {
+    .card { padding: 60px 22px 50px; }
+    .date-block { gap: 10px; }
+    .date-block .side { min-width: 80px; font-size: .75rem; padding: 6px; }
+    .date-block .day { font-size: 2.8rem; }
+    .countdown div { width: 68px; }
+    .countdown span { font-size: 1.4rem; }
+    .corner { width: 50px; height: 50px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mandala, .cover .seal { animation: none; }
+    .petals { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover" id="cover">
+  <div class="seal">J&amp;S</div>
+  <p>ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ · YOU ARE CORDIALLY INVITED</p>
+  <button id="openBtn">Open Invitation</button>
+</div>
+
+<div class="petals" id="petals"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="petalRing">
+      <path d="M100 20 C115 45 115 60 100 80 C85 60 85 45 100 20Z"/>
+      <path d="M100 60 C108 70 108 76 100 82 C92 76 92 70 100 60Z"/>
+    </g>
+    <g id="mandala" fill="none" stroke="currentColor" stroke-width="1">
+      <circle cx="100" cy="100" r="95"/>
+      <circle cx="100" cy="100" r="80"/>
+      <circle cx="100" cy="100" r="40"/>
+      <circle cx="100" cy="100" r="18"/>
+      <use href="#petalRing"/>
+      <use href="#petalRing" transform="rotate(30 100 100)"/>
+      <use href="#petalRing" transform="rotate(60 100 100)"/>
+      <use href="#petalRing" transform="rotate(90 100 100)"/>
+      <use href="#petalRing" transform="rotate(120 100 100)"/>
+      <use href="#petalRing" transform="rotate(150 100 100)"/>
+      <use href="#petalRing" transform="rotate(180 100 100)"/>
+      <use href="#petalRing" transform="rotate(210 100 100)"/>
+      <use href="#petalRing" transform="rotate(240 100 100)"/>
+      <use href="#petalRing" transform="rotate(270 100 100)"/>
+      <use href="#petalRing" transform="rotate(300 100 100)"/>
+      <use href="#petalRing" transform="rotate(330 100 100)"/>
+    </g>
+    <g id="cornerArt" fill="none" stroke="currentColor" stroke-width="1.4">
+      <path d="M4 66 L4 4 L66 4"/>
+      <path d="M12 58 L12 12 L58 12"/>
+      <path d="M12 12 C30 14 40 24 42 42 C24 40 14 30 12 12Z" fill="currentColor" fill-opacity=".18"/>
+      <circle cx="4" cy="4" r="3" fill="currentColor"/>
+      <circle cx="66" cy="4" r="2" fill="currentColor"/>
+      <circle cx="4" cy="66" r="2" fill="currentColor"/>
+    </g>
+  </defs>
+</svg>
+
+<svg class="mandala one" viewBox="0 0 200 200" aria-hidden="true"><use href="#mandala"/></svg>
+<svg class="mandala two" viewBox="0 0 200 200" aria-hidden="true"><use href="#mandala"/></svg>
+
+<main>
+  <article class="card">
+    <svg class="corner tl" viewBox="0 0 70 70" aria-hidden="true"><use href="#cornerArt"/></svg>
+    <svg class="corner tr" viewBox="0 0 70 70" aria-hidden="true"><use href="#cornerArt"/></svg>
+    <svg class="corner bl" viewBox="0 0 70 70" aria-hidden="true"><use href="#cornerArt"/></svg>
+    <svg class="corner br" viewBox="0 0 70 70" aria-hidden="true"><use href="#cornerArt"/></svg>
+
+    <div class="reveal">
+      <div class="khanda" aria-hidden="true">☬</div>
+      <div class="ik-onkar">ੴ ਸਤਿਗੁਰ ਪ੍ਰਸਾਦਿ</div>
+      <p class="fateh">Waheguru Ji Ka Khalsa, Waheguru Ji Ki Fateh</p>
+    </div>
+
+    <blockquote class="gurbani reveal">
+      <p class="gurmukhi">ਏਕ ਜੋਤਿ ਦੁਇ ਮੂਰਤੀ ਧਨ ਪਿਰੁ ਕਹੀਐ ਸੋਇ ॥</p>
+      <p class="translation">“They alone are called husband and wife, who have one light in two bodies.”</p>
+      <cite>Sri Guru Granth Sahib Ji · Ang 788</cite>
+    </blockquote>
+
+    <div class="divider reveal">✦</div>
+
+    <p class="intro reveal">
+      With the blessings of Waheguru Ji and in the holy presence of Sri Guru Granth Sahib Ji,
+      we joyfully invite you and your family to grace the Anand Karaj of
+    </p>
+
+    <section class="names reveal">
+      <h1 class="name">Jaskrit Kaur</h1>
+      <div class="weds">— WEDS —</div>
+      <h1 class="name">Sukhmeet Singh</h1>
+      <p class="ceremony">ਅਨੰਦ ਕਾਰਜ · ANAND KARAJ</p>
+    </section>
+
+    <div class="date-block reveal">
+      <div class="side">SUNDAY</div>
+      <div class="day">06</div>
+      <div class="side">DECEMBER</div>
+    </div>
+    <div class="year reveal">2026</div>
+
+    <div class="countdown reveal" id="countdown">
+      <div><span id="cd-days">0</span><small>Days</small></div>
+      <div><span id="cd-hours">00</span><small>Hours</small></div>
+      <div><span id="cd-mins">00</span><small>Minutes</small></div>
+      <div><span id="cd-secs">00</span><small>Seconds</small></div>
+    </div>
+
+    <section class="programme reveal">
+      <h3>PROGRAMME</h3>
+      <ul>
+        <li><span class="pa">ਮਿਲਣੀ</span><strong>Milni</strong><em>Meeting of the families</em></li>
+        <li><span class="pa">ਅਨੰਦ ਕਾਰਜ</span><strong>Anand Karaj</strong><em>The four Laavan before Sri Guru Granth Sahib Ji</em></li>
+        <li><span class="pa">ਲੰਗਰ</span><strong>Langar</strong><em>Guru Ka Langar</em></li>
+        <li><span class="pa">ਡੋਲੀ</span><strong>Doli</strong><em>Farewell of the bride</em></li>
+      </ul>
+      <p class="note">Timings will be shared along with the venue</p>
+    </section>
+
+    <div class="venue reveal">
+      <h3>VENUE</h3>
+      <p id="venue-text">Details to be announced soon</p>
+    </div>
+
+    <div class="divider reveal">❀</div>
+
+    <p class="closing reveal">
+      Your gracious presence and Ardaas for the couple will make our day complete.<br>
+      We look forward to celebrating with you.
+    </p>
+    <p class="families reveal">WITH LOVE · THE KAUR &amp; SINGH FAMILIES</p>
+    <p class="fateh closing-fateh reveal">ਵਾਹਿਗੁਰੂ ਜੀ ਕਾ ਖ਼ਾਲਸਾ, ਵਾਹਿਗੁਰੂ ਜੀ ਕੀ ਫ਼ਤਹਿ</p>
+  </article>
+</main>
+
+<script>
+  const cover = document.getElementById("cover");
+  const petalsBox = document.getElementById("petals");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function dropPetal() {
+    const p = document.createElement("div");
+    p.className = "petal" + (Math.random() > 0.5 ? " marigold" : "");
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.setProperty("--drift", (Math.random() * 200 - 100) + "px");
+    p.style.setProperty("--spin", (Math.random() * 720) + "deg");
+    p.style.animationDuration = (6 + Math.random() * 6) + "s";
+    petalsBox.appendChild(p);
+    p.addEventListener("animationend", () => p.remove());
+  }
+
+  function startPetals() {
+    if (reduceMotion) return;
+    for (let i = 0; i < 40; i++) setTimeout(dropPetal, i * 80);
+    setInterval(dropPetal, 700);
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add("show"); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+
+  document.getElementById("openBtn").addEventListener("click", () => {
+    cover.classList.add("hidden");
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    startPetals();
+  });
+
+  const weddingDate = new Date("2026-12-06T00:00:00+05:30");
+  const pad = n => String(n).padStart(2, "0");
+  function tick() {
+    const diff = weddingDate - new Date();
+    if (diff <= 0) {
+      document.getElementById("countdown").innerHTML =
+        '<p class="ceremony">THE BIG DAY IS HERE · WAHEGURU JI KA KHALSA, WAHEGURU JI KI FATEH</p>';
+      return;
+    }
+    document.getElementById("cd-days").textContent = Math.floor(diff / 86400000);
+    document.getElementById("cd-hours").textContent = pad(Math.floor(diff / 3600000) % 24);
+    document.getElementById("cd-mins").textContent = pad(Math.floor(diff / 60000) % 60);
+    document.getElementById("cd-secs").textContent = pad(Math.floor(diff / 1000) % 60);
+    setTimeout(tick, 1000);
+  }
+  tick();
+</script>
+</body>
+</html>
